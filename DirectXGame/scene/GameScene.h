@@ -18,6 +18,12 @@ public: // メンバ関数
 	/// コンストクラタ
 	/// </summary>
 	GameScene();
+	//	ワールドトランスフォーム
+	WorldTransform worldTransform_;
+	// ビュープロダクション
+	ViewProjection viewProjection_;
+	//ImGuiで値を入力する変数
+	float inputFloat3[3] = {0, 0, 0};
 
 	/// <summary>
 	/// デストラクタ
@@ -26,6 +32,9 @@ public: // メンバ関数
 
 	/// <summary>
 	/// 初期化
+    /// 
+ 
+
 	/// </summary>
 	void Initialize();
 
@@ -47,4 +56,11 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
+	//テクスチャハンドル
+	uint32_t textureHandle_ = 0;
+	
+	//スプライト
+	//Sprite* sprite_ = nullptr;
+	Model* model_ = nullptr;
+
 };
