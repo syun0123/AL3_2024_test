@@ -8,13 +8,14 @@ GameScene::GameScene() {}
 GameScene::~GameScene() { 
 	// delete sprite_; 
 	delete model_;
+	delete player_;
 }
 
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
-	audio_ = Audio::GetInstance();
+//	audio_ = Audio::GetInstance();
 	textureHandle_ = TextureManager::Load("kamereon.jpeg");
 	//スプライトの生成
 	//sprite_ = Sprite::Create(textureHandle_, {100, 50});
@@ -22,6 +23,11 @@ void GameScene::Initialize() {
 	model_ = Model::Create();
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
+	//自キャラの生成
+	player_ = new Player();
+	//自キャラの初期化
+	player_->Initialize( model_,  textureHandle_,  &viewProjection_);
+	
 }
 
 void GameScene::Update() { /*
@@ -30,11 +36,12 @@ void GameScene::Update() { /*
 	position.x += 2.0f;
 	position.y += 1.0f;
 	sprite_->SetPosition(position);*/
-	ImGui::Begin("Debug1");
-	//ImGui::Text("Kamata tarou %d,%d,%d,2050,12,31");
-	ImGui::InputFloat3("InputFloat3", inputFloat3);
-	ImGui::SliderFloat3("SliderFloat3", inputFloat3, 0.0f, 1.0f);
-	ImGui::End();
+	//ImGui::Begin("Debug1");
+	////ImGui::Text("Kamata tarou %d,%d,%d,2050,12,31");
+	//ImGui::InputFloat3("InputFloat3", inputFloat3);
+	//ImGui::SliderFloat3("SliderFloat3", inputFloat3, 0.0f, 1.0f);
+	//ImGui::End();
+	player_->Update();
 
 }
 void GameScene::Draw() {
@@ -59,11 +66,13 @@ void GameScene::Draw() {
 #pragma region 3Dオブジェクト描画
 	// 3Dオブジェクト描画前処理
 	Model::PreDraw(commandList);
-
+	
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+	player_->Draw();
+
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion

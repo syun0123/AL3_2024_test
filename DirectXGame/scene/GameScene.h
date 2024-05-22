@@ -7,12 +7,15 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include"Player.h"
 
 /// <summary>
 /// ゲームシーン
 /// </summary>
 class GameScene {
-
+	Model* model_ = nullptr;
+//自キャラ
+	Player* player_ = nullptr;
 public: // メンバ関数
 	/// <summary>
 	/// コンストクラタ
@@ -24,7 +27,8 @@ public: // メンバ関数
 	ViewProjection viewProjection_;
 	//ImGuiで値を入力する変数
 	float inputFloat3[3] = {0, 0, 0};
-
+	
+	
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
@@ -52,15 +56,15 @@ private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
-
+	// テクスチャハンドル
+	uint32_t textureHandle_ = 0;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
-	//テクスチャハンドル
-	uint32_t textureHandle_ = 0;
+	
 	
 	//スプライト
 	//Sprite* sprite_ = nullptr;
-	Model* model_ = nullptr;
+	
 
 };
