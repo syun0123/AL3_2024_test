@@ -8,14 +8,15 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include"Player.h"
-
+#include <vector>
 /// <summary>
 /// ゲームシーン
 /// </summary>
 class GameScene {
-	Model* model_ = nullptr;
-//自キャラ
-	Player* player_ = nullptr;
+	Model* modelBlock_ = nullptr;
+	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
+	//自キャラ
+	//Player* player_ = nullptr;
 public: // メンバ関数
 	/// <summary>
 	/// コンストクラタ
