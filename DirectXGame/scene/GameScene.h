@@ -9,12 +9,16 @@
 #include "WorldTransform.h"
 #include"Player.h"
 #include <vector>
+#include"DebugCamera.h"
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
 class GameScene {
 	Model* modelBlock_ = nullptr;
 	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
+	bool isDebugCameraAcive_ = false;
+	DebugCamera* debugCamera_ = nullptr;
 	//自キャラ
 	//Player* player_ = nullptr;
 public: // メンバ関数
