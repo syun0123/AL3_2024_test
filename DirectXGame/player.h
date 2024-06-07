@@ -13,7 +13,7 @@ public:
 // param name="textureHandle">テクスチャーハンドル</param>
 void Initialize(Model*model,uint32_t textureHandle,ViewProjection*viewProjection);
 	
-	//<summary>
+//<summary>
 // 更新
 //</summary>
 void Update();

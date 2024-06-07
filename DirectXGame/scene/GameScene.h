@@ -10,12 +10,15 @@
 #include"Player.h"
 #include <vector>
 #include"DebugCamera.h"
-
+#include"Skydome.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
 class GameScene {
+	Skydome* skydome_ = nullptr;
 	Model* modelBlock_ = nullptr;
+	//3dmodel
+	Model* modelSkydome_ = nullptr;
 	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
 	bool isDebugCameraAcive_ = false;
 	DebugCamera* debugCamera_ = nullptr;
@@ -62,7 +65,7 @@ private: // メンバ変数
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 	// テクスチャハンドル
-	uint32_t textureHandle_ = 0;
+	//uint32_t textureHandle_ = 0;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include "TextureManager.h"
+#include "Skydome.h"
 #include <cassert>
 #include"ImGuiManager.h"
 int isDebugCameraActive_ = 0;
@@ -9,6 +10,8 @@ GameScene::~GameScene() {
 	// delete sprite_; 
 	delete modelBlock_;
 	delete debugCamera_;
+	delete modelSkydome_;
+//	delete model_;
 	//delete player_;
 //for (WorldTransform* worldTransformBlock : worldTransformBlocks_) {
 //	delete worldTransformBlock;
@@ -23,7 +26,7 @@ GameScene::~GameScene() {
 }
 
 void GameScene::Initialize() {
-
+	skydome_ = new Skydome();
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 //	audio_ = Audio::GetInstance();
@@ -38,6 +41,10 @@ void GameScene::Initialize() {
 	debugCamera_ = new DebugCamera(1980, 720);
 	//自キャラの生成
 	//player_ = new Player();
+	// 3dモデル生成
+
+	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
+	modelSkydome_ = Model::Create();
 	//自キャラの初期化
 	//player_->Initialize( model_,  textureHandle_,  &viewProjection_);
 	//要素数
@@ -120,6 +127,7 @@ void GameScene::Update() { /*
 		}
 
 		}
+	skydome_->Update();
 	/* for (WorldTransform* worldTransformBlock : 
 		worldTransformBlocks_) {
 		// 平行移動
@@ -172,6 +180,7 @@ void GameScene::Draw() {
 		modelBlock_->Draw(*worldTransformBlock, viewProjection_);
 		}
 	}
+	modelSkydome_->Draw(worldTransform_, viewProjection_);
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
