@@ -60,7 +60,9 @@ private:
 	Microsoft::WRL::ComPtr<ID3D12Resource> constBuffer_;
 	// マッピング済みアドレス
 	ConstBufferDataWorldTransform* constMap = nullptr;
-	// コピー禁止
+	
+
+
 	WorldTransform(const WorldTransform&) = delete;
 	WorldTransform& operator=(const WorldTransform&) = delete;
 };

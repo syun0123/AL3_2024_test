@@ -13,12 +13,12 @@ viewProjection_ = viewprojection;
 worldTransform_.Initialize();
 }
 
-void Player::Update() { worldTransform_.TransferMatrix(); }
+void Player::Update() {/* worldTransform_.TransferMatrix();*/ }
 
 //void Player::Draw() {
 //	model_->Draw(worldTransform_, *viewProjection_, textureHandle_);
 //}
 void Player::Draw() {
 	// 3Dモデルを描画
-	model_->Draw(worldTransform_, *viewProjection_);
+	/* model_->Draw(worldTransform_, *viewProjection_);*/
 }
