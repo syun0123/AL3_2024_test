@@ -11,6 +11,7 @@
 #include <vector>
 #include"DebugCamera.h"
 #include"Skydome.h"
+#include"MapChipField.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -24,6 +25,9 @@ class GameScene {
 	DebugCamera* debugCamera_ = nullptr;
 	//自キャラ
 	//Player* player_ = nullptr;
+	MapChipField* mapChipField_;
+	void GenerateBlocks();
+
 public: // メンバ関数
 	/// <summary>
 	/// コンストクラタ

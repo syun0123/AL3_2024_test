@@ -1,5 +1,6 @@
 #pragma once
 #include <cstdint>
+#include <vector>
 //</summary>
 ///マップチップフィールド
 //</summary>
@@ -10,9 +11,18 @@ class MapChipField {
 	//ブロックの個数　
 	static inline const uint32_t kNumBlockVirtical = 20;
 	static inline const uint32_t kNumBlockHorizonal = 100;
-
+	MapChipData mapChipData_;
+	void ResetMapChip();
+	void LoadMapChipCsv(const std::string& filePath);
+	MapChipType GetMapChipTypeByIndex(uint32_t xIndex, uint32_t yIndex);
+	Vector3 GetMapChipPostingByIndex(uint32_t xIndex,uint32_t yIndex);
+	void ResetMapChipData();
+	
 };
 enum class MapChipType {
-	kBlank,//空白
-	kBlock,//ブロック
+	kBlank, // 空白
+	kBlock, // ブロック
+	};
+struct MapChipData {
+	std::vector<std::vector<MapChipType>> data;
 };

@@ -4,6 +4,15 @@
 #include <cassert>
 #include"ImGuiManager.h"
 int isDebugCameraActive_ = 0;
+void GameScene::GenerateBlocks() {
+	uint32_t numBlockVirtical = mapChipField_->GetNumBlockVirtical();
+	uint32_t numBlockHorizontal = mapChipField_->GetNumBlockHorizonal();
+
+	worldTransformBlocks_.resize(kNumBlockVirtical);
+	for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
+		worldTransformBlocks_[i].resize(kNumBlockHorizonal);
+	}
+}
 GameScene::GameScene() {}
 
 GameScene::~GameScene() { 
@@ -11,7 +20,8 @@ GameScene::~GameScene() {
 	delete modelBlock_;
 	delete debugCamera_;
 	delete modelSkydome_;
-//	delete model_;
+	delete mapChipField_;
+	//	delete model_;
 	//delete player_;
 //for (WorldTransform* worldTransformBlock : worldTransformBlocks_) {
 //	delete worldTransformBlock;
@@ -60,23 +70,31 @@ void GameScene::Initialize() {
 	// for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
 	//for (uint32_t j = 0; j < kNumBlockHorizontal; j++) {
 	//worldTransformBlocks_.resize(kNumBlockHorizontal);
-	worldTransformBlocks_.resize(kNumBlockVirtical);
-	for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
-	//1列の要素数を設定
-		worldTransformBlocks_[i].resize(kNumBlockHorizontal);
-	}
-	    //キューブ生成
-
+	//worldTransformBlocks_.resize(kNumBlockVirtical);
+	//for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
+	////1列の要素数を設定
+	//	worldTransformBlocks_[i].resize(kNumBlockHorizontal);
+	//}
+	//    //キューブ生成
+	//
 	for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
 		for (uint32_t j = 0; j < kNumBlockHorizontal; j++) {
-			if ((i+j)%2 == 0)
-				continue;
-		worldTransformBlocks_[i][j] = new WorldTransform();
-		worldTransformBlocks_[i][j]->Initialize();
-		worldTransformBlocks_[i][j]->translation_.x = kBlockWidth * j;
-		worldTransformBlocks_[i][j]->translation_.y = kBlockHeight*i;
+			if (mapChipField_->GetMapChipTypeByIndex(j, i) == MapChipType::kBlock) {
+			
+			WorldTransform*worldTransform = new WorldTransform();
+		    worldTransform->Initialize();
+		    worldTransformBlocks_[i][j]=worldTransform;
+			worldTransformBlocks_[i][j]->translation_ = mapChipField_->GetMapChipPostingByIndex(j, i);
+		  	}
+			
+;
 	}
 	}
+	
+
+	mapChipField_ = new MapChipField;
+	mapChipField_->LoadMapChipCsv("Resources/blocks.csv");
+	GenerateBlocks();
 }
 
 void GameScene::Update() { /*
