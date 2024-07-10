@@ -29,7 +29,7 @@ public:
 
 	WorldTransform() = default;
 	~WorldTransform() = default;
-
+	//void UpdateMatrix();
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -49,6 +49,9 @@ public:
 	/// <summary>
 	/// 定数バッファの取得
 	/// </summary>
+	/// 行列を計算・転送する
+	/// </summary>
+	void UpdateMatrix();
 	/// <returns>定数バッファ</returns>
 	const Microsoft::WRL::ComPtr<ID3D12Resource>& GetConstBuffer() const { return constBuffer_; }
 
@@ -57,7 +60,9 @@ private:
 	Microsoft::WRL::ComPtr<ID3D12Resource> constBuffer_;
 	// マッピング済みアドレス
 	ConstBufferDataWorldTransform* constMap = nullptr;
-	// コピー禁止
+	
+
+
 	WorldTransform(const WorldTransform&) = delete;
 	WorldTransform& operator=(const WorldTransform&) = delete;
 };
