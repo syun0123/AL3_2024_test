@@ -10,9 +10,22 @@ void GameScene::GenerateBlocks() {
 
 	worldTransformBlocks_.resize(kNumBlockVirtical);
 	for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
-		worldTransformBlocks_[i].resize(kNumBlockHorizontal);
+	  worldTransformBlocks_[i].resize(kNumBlockHorizontal);
 	}
-	
+	//ブロックの生成
+
+	for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
+		for (uint32_t j = 0; j < kNumBlockHorizontal; j++) {
+			if (mapChipField_->GetMapChipTypeByIndex(j, i) == MapChipType::kBlock) {
+				WorldTransform* worldTransform = new WorldTransform();
+				worldTransform->Initialize();
+				worldTransformBlocks_[i][j] = worldTransform;
+				worldTransformBlocks_[i][j]->translation_ = mapChipField_->GetMapChipPostingByIndex(j, i);
+			}
+		}
+	}
+
+
 }
 GameScene::GameScene() {}
 
