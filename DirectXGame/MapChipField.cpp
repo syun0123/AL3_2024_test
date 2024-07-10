@@ -4,8 +4,6 @@
 #include<fstream>
 #include<sstream>
 #include <cassert>
-#include <main.cpp>
-#include<map>
 //std::map<std::string, MapChipType> mapChipTable = {
 //    {"0", MapChipType::kBlank},
 //    {"1", MapChipType::kBlock},
@@ -27,39 +25,54 @@ mapChipData_.data.resize(kNumBlockVirtical);
 
 }
 
+
+
 void MapChipField::LoadMapChipCsv(const std::string& filePath) {
-    //マップチップデータをリセット
+
+	// マップチップデータをリセット
 	ResetMapChipData();
-    //ファイルを開く
+
+	// ファイルを開く
 	std::ifstream file;
 	file.open(filePath);
 	assert(file.is_open());
 
-    //マップチップcsv
+	// マップチップCSV
 	std::stringstream mapChipCsv;
-    //ファイルの内容を文字列ストリームにコピー
+
+	// ファイルの内容を文字列ストリームにコピー
 	mapChipCsv << file.rdbuf();
-    //ファイルを閉じる
+
+	// ファイルを閉じる
 	file.close();
-    //csvからマップチップデータを読み込む
+
+	// CSVからマップチップデータを読み込む
+	std::string line;
+
 	for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
-		std::string line;
 		getline(mapChipCsv, line);
-        //1行分の文字列をストリームに変換して解析しやすくなる
+
+		// 一行分の文字列をストリームに変換して解析しやすくなる
 		std::istringstream line_stream(line);
 
 		for (uint32_t j = 0; j < kNumBlockHorizonal; ++j) {
-
 			std::string word;
-			getline(line_stream, word);
+			getline(line_stream, word, ',');
 
 			if (mapChipTable.contains(word)) {
 				mapChipData_.data[i][j] = mapChipTable[word];
 			}
 		}
-    }
-
+	}
 }
+
+
+
+
+
+
+
+
 
 MapChipType MapChipField::GetMapChipTypeByIndex(uint32_t xIndex, uint32_t yIndex) { 
 	if (xIndex < 0 || kNumBlockHorizonal - 1 < xIndex) {
@@ -76,7 +89,8 @@ Vector3 MapChipField::GetMapChipPostingByIndex(uint32_t xIndex, uint32_t yIndex)
 
 
 
-	return Vector3(kBlockWidth * xIndex, kBlockHeight * (kNumBlockVirtical - 1 - yIndex), 0); }
+	return Vector3(kBlockWidth * xIndex, kBlockHeight * (kNumBlockVirtical - 1 - yIndex), 0);
+}
 
 void MapChipField::ResetMapChipData() {
 	mapChipData_.data.clear();
@@ -86,7 +100,4 @@ void MapChipField::ResetMapChipData() {
 	}
 }
 
-std::map<std::string, MapChipType> mapChipTable = {
-    {"0", MapChipType::kBlank},
-    {"1", MapChipType::kBlock},
-};
+

@@ -5,13 +5,14 @@
 #include"ImGuiManager.h"
 int isDebugCameraActive_ = 0;
 void GameScene::GenerateBlocks() {
-	uint32_t numBlockVirtical = mapChipField_->GetNumBlockVirtical();
-	uint32_t numBlockHorizontal = mapChipField_->GetNumBlockHorizonal();
+	uint32_t kNumBlockVirtical = mapChipField_->GetkNumBlockVirtical();
+	uint32_t kNumBlockHorizontal = mapChipField_->GetkNumBlockHorizonal();
 
 	worldTransformBlocks_.resize(kNumBlockVirtical);
 	for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
-		worldTransformBlocks_[i].resize(kNumBlockHorizonal);
+		worldTransformBlocks_[i].resize(kNumBlockHorizontal);
 	}
+	
 }
 GameScene::GameScene() {}
 
@@ -61,11 +62,11 @@ void GameScene::Initialize() {
 //	player_->Initialize( model_,  textureHandle_,  &viewProjection_);
 	
 	//要素数
-	const uint32_t kNumBlockVirtical = 10;
-	const uint32_t kNumBlockHorizontal = 20;
+	//const uint32_t kNumBlockVirtical = 10;
+	//const uint32_t kNumBlockHorizontal = 20;
 	//ブロック1個分の横幅
-	const float kBlockWidth = 2.0f;
-	const float kBlockHeight = 2.0f;
+	//const float kBlockWidth = 2.0f;
+	//const float kBlockHeight = 2.0f;
 	//要素数を変更
 	// for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
 	//for (uint32_t j = 0; j < kNumBlockHorizontal; j++) {
@@ -77,19 +78,17 @@ void GameScene::Initialize() {
 	//}
 	//    //キューブ生成
 	//
-	for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
-		for (uint32_t j = 0; j < kNumBlockHorizontal; j++) {
-			if (mapChipField_->GetMapChipTypeByIndex(j, i) == MapChipType::kBlock) {
-			
-			WorldTransform*worldTransform = new WorldTransform();
-		    worldTransform->Initialize();
-		    worldTransformBlocks_[i][j]=worldTransform;
-			worldTransformBlocks_[i][j]->translation_ = mapChipField_->GetMapChipPostingByIndex(j, i);
-		  	}
-			
-;
-	}
-	}
+ // for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
+ // 	 for (uint32_t j = 0; j < kNumBlockHorizontal; j++) {
+ // 		if (mapChipField_->GetMapChipTypeByIndex(j, i) == MapChipType::kBlock) {
+ // 		
+ // 		WorldTransform*worldTransform = new WorldTransform();
+ // 	    worldTransform->Initialize();
+ // 	    worldTransformBlocks_[i][j]=worldTransform;
+ // 		worldTransformBlocks_[i][j]->translation_ = mapChipField_->GetMapChipPostingByIndex(j, i);
+ // 	  	}
+ // }
+ // }
 	
 
 	mapChipField_ = new MapChipField;
